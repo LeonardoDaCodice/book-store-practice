@@ -43,6 +43,8 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class BookTest {
@@ -67,51 +69,97 @@ class BookTest {
 
     @Test
     void testAddBook() {
-        // TODO: This test should verify that a book can be added to the library.
-        // 1. Create a new Library object.
-        // 2. Create a new Book object.
-        // 3. Add the book to the library.
-        // 4. Verify that the book is in the library.
+
+        Library library = new Library();
+
+        Book book = new Book("1984", "George Orwell", "1");
+
+        library.addBook(book);
+        List<Book> books = library.listBooks();
+
+        assertEquals(1, books.size());
+        assertEquals("1984", books.get(0).getTitle());
     }
 
     @Test
     void testRemoveBook() {
-        // TODO: This test should verify that a book can be removed from the library.
-        // 1. Create a new Library object.
-        // 2. Create a new Book object and add it to the library.
-        // 3. Remove the book from the library using its ISBN.
-        // 4. Verify that the book is no longer in the library.
+  
+        Library library = new Library();
+
+        Book book = new Book("1984", "George Orwell", "1");
+
+        library.addBook(book);
+        library.removeBook("1");
+
+        assertEquals(0, library.listBooks().size());
     }
 
     @Test
     void testListBooks() {
-        // TODO: This test should verify that the library can list all its books.
-        // 1. Create a new Library object.
-        // 2. Create multiple Book objects and add them to the library.
-        // 3. Call the listBooks() method.
-        // 4. Verify that the returned list contains all the books that were added.
+     
+        Library library = new Library();
+
+        Book book1 = new Book("Book1", "Author1", "1");
+        Book book2 = new Book("Book2", "Author2", "2");
+
+        library.addBook(book1);
+        library.addBook(book2);
+
+        List<Book> books = library.listBooks();
+
+        assertEquals(2, books.size());
     }
 
     @Test
     void testGetBookByAuthor() {
-        // TODO: This test should verify that the library can retrieve all books by a specific author.
-        // 1. Create a new Library object.
-        // 2. Create multiple Book objects with different authors and add them to the library.
-        // 3. Call the getBook() method with a specific author.
-        // 4. Verify that the returned list contains all the books by that author.
+
+        Library library = new Library();
+
+        Book book1 = new Book("Book1", "Author1", "1");
+        Book book2 = new Book("Book2", "Author1", "2");
+        Book book3 = new Book("Book3", "Author2", "3");
+
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+
+        List<Book> result = library.getBooksByAuthor("Author1");
+
+        assertEquals(2, result.size());
     }
 
     @Test
     void testEbookCreation() {
-        // TODO: This test should verify that an Ebook can be created with the correct properties.
-        // 1. Create a new Ebook object.
-        // 2. Verify that the book object has the correct properties (title, author, isbn, and file size).
+      
+        Ebook ebook = new Ebook(
+                "Clean Code",
+                "Robert Martin",
+                "10",
+                5
+        );
+
+        assertNotNull(ebook);
+        assertEquals("Clean Code", ebook.getTitle());
+        assertEquals("Robert Martin", ebook.getAuthor());
+        assertEquals("10", ebook.getIsbn());
+        assertEquals(5, ebook.getFileSize());
     }
 
     @Test
     void testPaperBookCreation() {
-        // TODO: This test should verify that a PaperBook can be created with the correct properties.
-        // 1. Create a new PaperBook object.
-        // 2. Verify that the book object has the correct properties (title, author, isbn, and weight).
+       
+        PaperBook paperBook = new PaperBook(
+                "Design Patterns",
+                "Gamma",
+                "20",
+                800
+        );
+
+        assertNotNull(paperBook);
+        assertEquals("Design Patterns", paperBook.getTitle());
+        assertEquals("Gamma", paperBook.getAuthor());
+        assertEquals("20", paperBook.getIsbn());
+        assertEquals(800, paperBook.getWeight());
     }
+    
 }
